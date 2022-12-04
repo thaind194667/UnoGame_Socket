@@ -1,0 +1,137 @@
+<html>
+  
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <link rel="stylesheet" href="./style/run.css"> -->
+  <title>Main menu</title>
+  <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+
+</head>
+<body id="body">
+
+<script>
+    let array = [];
+    // array.splice(3, 1);
+    for(let i = 1; i <= 8; i++) 
+        array[i] = {index: i, square: i * i };
+    console.log(JSON.parse(JSON.stringify(array)));
+    // console.log(array[3].index);
+
+    // delete array[3].index;   
+    // array[3].index = undefined;
+    array.splice(3, 1);
+    console.log(JSON.parse(JSON.stringify(array)));
+    console.log(array[3]);
+</script>
+
+  <div id="what"></div>
+
+    
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"> </script>
+
+<div id="res"></div>
+
+<div id="no"></div>
+
+<!-- <script src="./test.js"></script> -->
+
+<script>
+  // $('#what').text("what");
+  array[1].index = 10;
+  console.log(JSON.parse(JSON.stringify(array)));
+  /// DOM
+  const h1 = React.createElement("h1", {
+    className: 'header1',
+    style: {color: 'blue'}
+  }, 'This is a test');
+  ReactDOM.render(h1, document.getElementById('res'));
+  // const h1 = document.createElement("h1");
+  // h1.title = "Hello";
+  // h1.className = "Hi";
+  // h1.innerText = "Lo";
+
+  // $('#what').append(h1);
+
+  //REACT React.createElement(type, {object of atrribute}, inside content);
+  // const h2 = React.createElement("h2", {
+  //   title: 'no',
+  //   className: 'whatever', 
+  // }, 'No this');
+
+  // const what = document.getElementById('what');
+
+  /// ReactDOM.render(element, container, callback) /// render ${element} into ${container} with ${callback} function
+  /// ReactDOM.render(element, container)                                                   without callback function
+  // ReactDOM.render(h2, what);
+  
+</script>
+
+
+<script type="text/babel">
+
+    const h22 = <h2 style={{color: 'red'}}> hello</h2>
+    ReactDOM.render(h22, document.getElementById('what'));
+
+    // const courses = [
+    //   {
+    //     name: 'HTML ,CSS',
+    //   }, 
+    //   {
+    //     name: 'Responsive',
+    //   }, 
+    //   {
+    //     name: 'ReactJS'
+    //   }
+    // ];
+        // React.Fragment wrap các thẻ khác mà k tạo thẻ div
+
+    function Item(props) {
+      return (
+        <React.Fragment >
+          <div className = "item-name"> {props.name} </div>
+          <div className="item-price" style={{color: 'red'}}>{props.price}</div>
+          <div className="item-des" style={{fontSize:'50px'}}>{props.descript}</div>
+        </React.Fragment>
+      )
+    }
+
+    class MoreItem extends React.Component {
+      constructor(props) {
+        super();
+        this.num = props.num;
+      }
+      render() {
+        return (
+          <div className="buyer">Have {this.num} buyers</div>
+        )
+      }
+    }
+
+    const jsx = 
+      <div id="content"> 
+        <Item name="item1" price="10000" descript="item 1" />
+        <MoreItem num="22" />
+        <Item name="item2" price="20000" descript="item 2" />
+      </div>
+
+      // <ul>
+      //   {courses.map(course => 
+      //     <li>{course.name}</li>
+      //   )}
+      // </ul>
+    
+  ReactDOM.render(jsx, document.getElementById('no'));
+
+</script>
+
+</body>
+
+</html>
+
+

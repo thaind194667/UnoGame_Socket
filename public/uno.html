@@ -1,0 +1,229 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/game.css">
+    <title>UNO game</title>
+</head>
+
+<body>
+  
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"> </script>
+<script src="/socket.io/socket.io.js"></script>
+
+<div id="stopped">Server has stopped!</div>
+
+
+<div id=menu> 
+    <!-- <button id="back">Back</button> <br/> -->
+<table id="choose">
+  
+    <td class="roomChoose" id="createChoose">Create room</td>
+    <td id="createRoom" style="display: none;">Create Room <br/> <br/> <br/>
+        Room code(blank to random generate): <input class="roomId" id="newRoomId" type="text"/> <br/> <br/>
+        <br> </br>
+        <button class="Button" id="confirmCreate"> Create! </button>
+    </td>
+
+    <td class="roomChoose" id="joinChoose">Join room</td>
+    <td id="joinRoom" style="display: none;">Join Room <br/> <br/> <br/>
+        Room code: <input class="roomId" id="joinRoomId" type="text"/> <br/> <br/> <br/>
+        <button id="confirmJoin">Join!</button>
+    </td>
+</table>
+</div>
+
+<div id="Begin">
+<div id="Username"> 
+    <br/>
+    What is your name, player? <br/>
+    <input id="Name" type="text"  />  <br/> <br/>
+    <button id="confirmName" >Let's go!</button>
+</div>
+</div>
+<!-- <div id="chatContent" style="display: none;">
+  <button id="backMenu">Back to Menu</button>
+  <div id="roomIn4"></div>
+  <label for="message" class="h4" style="margin-top: 20px;">Message:</label>
+  <ul id="messages" style="height: 550px; border: solid 1px #cecece; list-style: none;"></ul>
+
+  <form>
+    <div class="form-group">
+    <textarea id="m" class="form-control" rows="5" placeholder="Enter your message" required></textarea>
+    </div>
+    <button type="submit" id="form-submit" class="btn btn-success btn-lg pull-right ">Submit</button>
+  </form>
+
+</div> -->
+
+<div id="unoPlay" style="display: none; z-index: 1;">
+<table id="unoContent">
+    <tr id="topRow">
+        <td class="player" id="player7">
+            <div class="pAvatar LAvatar" id="p7Avatar"> </div>
+            <div class="pHand LHand" id="p7Hand">
+
+            </div>
+        </td>
+
+        <td class="player" id="player6">
+            <div class="pAvatar MAvatar" id="p6Avatar">
+
+            </div>
+            <div class="pHand MHand" id="p6Hand">
+
+            </div>
+        </td>
+
+        <td class="player" id="player5">
+            <div class="pAvatar MAvatar" id="p5Avatar">
+
+            </div>
+            <div class="pHand MHand" id="p5Hand">
+
+            </div>
+        </td>
+
+        <td class="player" id="player4">
+            <div class="pAvatar MAvatar" id="p4Avatar">
+
+            </div>
+            <div class="pHand MHand" id="p4Hand">
+
+            </div>
+        </td>
+
+        <td class="player" id="player3">
+            <div class="pAvatar RAvatar" id="p3Avatar">
+
+            </div>
+            <div class="pHand RHand" id="p3Hand">
+
+            </div>
+        </td>
+    </tr>
+
+    <tr id="midRow">
+        <td class="player" id="player8">
+            <div class="pAvatar LAvatar" id="p8Avatar">
+
+            </div>
+            <div class="pHand LHand" id="p8Hand">
+
+            </div>
+        </td>
+
+        <td id="deck" colspan="3">
+            <button id="startGame" style="display: none;">Start</button>
+            <button id="readyGame" style="display: none;">Ready</button>
+            <div id="frontDeck" style="display: none;">
+                <div id="drawPile"> 
+                    <button id="Draw">Draw </button>
+                </div>
+                <div id="currentPlay" >
+                    <img id="currentCard"/>
+                </div> 
+            </div>
+        </td>
+
+        <td class="player" id="player2">
+            <div class="pAvatar RAvatar" id="p2Avatar">
+
+            </div>
+            <div class="pHand RHand" id="p2Hand">
+
+            </div>
+        </td>
+    </tr>
+
+    <tr id="botRow">
+        <td id="leftFunc">
+            <!-- <button id="addPlayer">Back to Menu</button> <br/>
+            <button id="minusPlayer">Hit</button> <br/> -->
+            <button class="LFunc" id="Hit" disabled>Hit</button> <br>
+            <button class="LFunc" id="Pass" disabled>Pass my turn</button> <br>
+        </td>
+        <td class="player" id="player" colspan="3">
+            <div id="playerAvatar">
+
+            </div>
+            <div id="playerHand">
+                <img class="cardImg" id="0" src="./img/backCard.png">
+                <!-- <div class="cardImg" id="card0"></div> -->
+            </div>
+        </td>
+
+        <td id="rightFunc">
+
+            <div id="filter">
+                <label for="filter">Filter Card: </label> <br/>
+                <input type="checkbox" name="Red" id="red"> Red 
+                <input type="checkbox" name="blue" id="blue"> Blue <br/>
+                <input type="checkbox" name="green" id="green"> Green 
+                <input type="checkbox" name="black" id="black"> Black <br/>
+            </div>
+
+            <!-- <button id="Draw">Draw</button> -->
+            <button id="filterCard">Filter</button>
+        </td>
+    </tr>
+
+</table>
+</div>
+
+<div id="RoomList"></div>
+
+<div id="createFail" class="Noti" style="display: none;"><p>Room already existed! Cannot create room</p></div>
+
+<div id="joinFail" class="Noti" style="display: none;"><p>Room not existed! Cannot join room</p></div>
+
+<div id="yourTurn" class="Noti" style="display: none;"><p>Your turn!</p></div>
+
+<div class="Noti" id="hitFail" style="display: none;"><p>Cannot hit this card</p></div>
+
+
+<div id="colorChoose">
+    <p>Choose color!</p>
+    <div id="red" class="color">Red</div>
+    <div id="blue" class="color">Blue</div>
+    <div id="green" class="color">Green</div>
+    <div id="yellow" class="color">Yellow</div>
+</div>
+
+<div id="newGame">
+    <div id="notification"></div>
+    <div>
+        <input type="button" id="restart" value="New game" /> <br/>
+        <input type="button" id="backMenu" value="Back to menu"/> <br/>
+    </div>
+</div>
+
+<div> </div>
+
+
+<script>
+
+let State = [];
+let playerNum = 1;
+
+for(let i = 2; i <= 8; i++) {
+  $('#player'+i).prepend(`<div id="p${i}Wait" style="text-aligment: center;"> Waiting for player ... </div>`);
+  $(`#p${i}Wait`).hide();
+  if(i > playerNum) {
+      $(`#p${i}Wait`).show();
+      $(`#p${i}Hand, #p${i}Avatar`).hide();
+  }
+  $('#player'+i).append(`<div id="p${i}State" style="text-aligment: center;"> Ready! </div>`);
+  $(`#p${i}State`).hide();
+  State[i] = 0;
+}
+
+
+  
+</script>
+
+<script src="./uno.js"> </script>
+
+</body>
+
+</html>

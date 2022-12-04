@@ -1,0 +1,24 @@
+skip:2:             :Skip+1:All:-1
+draw 2:2:           :Draw+2:All:-2
+change D:2:Reverse:Change+Direction:All:-3
+draw 4:4:           :Draw+4::-4
+change Color:4:     :Change+Color::-5
+**Exit
+
+
+draw 4 target:4:choose:Draw+4&Target::
+wild Up:4:          :Draw+Stack::
+random Draw:4:      :Draw+Random::
+battle:6:choose:Battle&Drop+2&Draw+2::
+shield:6:           :Change+Color|Draw+0::
+skip 2:2:           :Skip+2:All:
+high Five:1:        :Touch&Draw+2:All:5
+tornado:1:          :Draw+Until:All:
+discard:1:          :Drop+Color:All:
+7 change:1:R:Change+Card&Change+Direction:green:7
+7 change:1:R:Change+Card&Change+Direction:blue:7
+7 change:1:L:Change+Card&Change+Direction:red:7
+7 change:1:L:Change+Card&Change+Direction:yellow:7
+
+**Exit
+"name":"number of cards":"target":"effect":"color":"value"
