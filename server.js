@@ -278,5 +278,5 @@ io.on('connection', function(socket) {
 
 http.listen(3000, function() {
   console.log('listening on *:3000');
-  console.log('Running on http://localhost:3000/game');
+  console.log('Running on https://cardgames.thaind194667.repl.co/game');
 });
